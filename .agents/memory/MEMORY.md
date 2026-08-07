@@ -1,0 +1,1 @@
+- [Flutter SDK compatibility](flutter-sdk-compatibility.md) — Flutter 3.32/Dart 3.8 requires aligned code-generator versions; add generators as a tested set when models arrive.
