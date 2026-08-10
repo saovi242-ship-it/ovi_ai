@@ -33,16 +33,16 @@ jobs:
 
       - name: Get Dependencies
         run: flutter pub get
-        working-directory: ./
+        working-directory: ./ovi_ai
 
       - name: Build Flutter Web
         run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
-        working-directory: ./
+        working-directory: ./ovi_ai
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: ovi_ai/build/web
 
       - name: Deploy to GitHub Pages
         id: deployment
