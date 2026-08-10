@@ -14,7 +14,10 @@ final appRouter = GoRouter(
   routes: [
     ShellRoute(
       builder: (context, state, child) {
-        return OviShell(child: child);
+        return OviShell(
+          location: state.uri.toString(),
+          child: child,
+        );
       },
       routes: [
         GoRoute(
