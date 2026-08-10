@@ -1,3 +1,150 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import '../../../../shared/widgets/natasha_avatar.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  String _getGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good morning, OVI ☀️';
+    } else if (hour < 17) {
+      return 'Good afternoon, OVI 🌤️';
+    } else {
+      return 'Good evening, OVI 🌙';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isDesktop = size.width >= 800;
+
+    return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: isDesktop ? 48.0 : 24.0,
+              vertical: 24.0,
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 700),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20),
+                  
+                  // ১. Natasha Avatar with Glow Effect
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: isDesktop ? 180 : 130,
+                        height: isDesktop ? 180 : 130,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: theme.colorScheme.primary.withOpacity(0.35),
+                              blurRadius: 40.0,
+                              spreadRadius: 10.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      NatashaAvatar(
+                        size: isDesktop ? 180 : 130,
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  // ২. Dynamic Time-based Greeting
+                  Text(
+                    _getGreeting(),
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 0.5,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // ৩. Natasha Introduction Text
+                  Text(
+                    "I'm Natasha. How can I help you today?",
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+
+                  const SizedBox(height: 48),
+
+                  // ৪. Glassmorphism Interaction Card
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(24),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.12),
+                            width: 1,
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                // Conversation action
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: theme.colorScheme.primary,
+                                foregroundColor: Colors.white,
+                                minimumSize: const Size(double.infinity, 54),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                elevation: 0,
+                              ),
+                              icon: const Icon(Icons.auto_awesome),
+                              label: const Text(
+                                'Start Conversation',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 import 'package:flutter/material.dart';
 
 import '../../../../app/theme/app_theme.dart';
