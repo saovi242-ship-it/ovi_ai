@@ -1,0 +1,45 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:ovi_ai/shared/widgets/natasha_avatar.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  String _getGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good morning, OVI ☀️';
+    } else if (hour < 17) {
+      return 'Good afternoon, OVI 🌤️';
+    } else {
+      return 'Good evening, OVI 🌙';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const NatashaAvatar(),
+              const SizedBox(height: 24),
+              Text(
+                _getGreeting(),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
