@@ -3,15 +3,13 @@ workflows:
     name: Android Workflow
     instance_type: mac_mini_m1
     max_build_duration: 30
+    working_directory: ovi_ai
     scripts:
       - name: Get Flutter packages
         script: |
-          cd ovi_ai
           flutter packages pub get
       - name: Build Android APK
         script: |
-          cd ovi_ai
           flutter build apk --release
     artifacts:
-      - ovi_ai/build/app/outputs/flutter-apk/*.apk
-
+      - build/app/outputs/flutter-apk/*.apk
