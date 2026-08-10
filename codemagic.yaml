@@ -6,10 +6,12 @@ workflows:
     scripts:
       - name: Get Flutter packages
         script: |
+          cd ovi_ai
           flutter packages pub get
       - name: Build Android APK
         script: |
+          cd ovi_ai
           flutter build apk --release
     artifacts:
-      - build/app/outputs/flutter-apk/*.apk
-      
+      - ovi_ai/build/app/outputs/flutter-apk/*.apk
+
