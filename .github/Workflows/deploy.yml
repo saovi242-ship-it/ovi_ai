@@ -26,28 +26,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Java (Required for Flutter tools)
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          cache: true
 
       - name: Get Dependencies
         run: flutter pub get
+        working-directory: ./ovi_ai
 
       - name: Build Flutter Web
         run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+        working-directory: ./ovi_ai
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: ovi_ai/build/web
 
       - name: Deploy to GitHub Pages
         id: deployment
