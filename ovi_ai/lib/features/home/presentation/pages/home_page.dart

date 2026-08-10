@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'dartt:ui';
 import 'package:flutter/material.dart';
 import 'package:ovi_ai/shared/widgets/natasha_avatar.dart';
 
