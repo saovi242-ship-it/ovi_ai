@@ -2,7 +2,7 @@
 
 Production-ready Flutter project foundation for a premium AI companion app.
 
-This scaffold intentionally contains **no screens and no feature implementation**.
+This scaffold intentionally contains **no screens and no feature implementation**..
 It establishes the boundaries and dependencies needed to build the product
 incrementally without coupling UI, business rules, persistence, or networking.
 
