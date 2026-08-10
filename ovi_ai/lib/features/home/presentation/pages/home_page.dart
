@@ -1,6 +1,6 @@
-import 'dart:ui';
+import 'dartt:ui';
 import 'package:flutter/material.dart';
-import '../../../../shared/widgets/natasha_avatar.dart';
+import 'package:ovi_ai/shared/widgets/natasha_avatar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
