@@ -1,23 +1,23 @@
-import 'package:flutter/material.dart';  
-  
+Import 'package:flutter/material.dart';  
+
 import '../../../../app/theme/app_theme.dart';  
 import '../../../../core/widgets/glass_card.dart';  
 import '../../../../shared/widgets/natasha_avatar.dart';  
-  
+
 class ChatPage extends StatefulWidget {  
   const ChatPage({super.key});  
-  
+
   @override  
   State<ChatPage> createState() => _ChatPageState();  
 }  
-  
+
 class _ChatMessage {  
   _ChatMessage({required this.text, required this.isUser});  
-  
+
   final String text;  
   final bool isUser;  
 }  
-  
+
 class _ChatPageState extends State<ChatPage> {  
   final List<_ChatMessage> _messages = [  
     _ChatMessage(  
@@ -25,14 +25,14 @@ class _ChatPageState extends State<ChatPage> {
       isUser: false,  
     ),  
   ];  
-  
+
   final TextEditingController _controller = TextEditingController();  
   final ScrollController _scrollController = ScrollController();  
   final FocusNode _focusNode = FocusNode();  
-  
+
   bool _canSend = false;  
   bool _disposed = false;  
-  
+
   @override  
   void initState() {  
     super.initState();  
@@ -43,7 +43,7 @@ class _ChatPageState extends State<ChatPage> {
       }  
     });  
   }  
-  
+
   @override  
   void dispose() {  
     _disposed = true;  
@@ -52,7 +52,7 @@ class _ChatPageState extends State<ChatPage> {
     _focusNode.dispose();  
     super.dispose();  
   }  
-  
+
   void _scrollToBottom() {  
     if (!_scrollController.hasClients) return;  
     WidgetsBinding.instance.addPostFrameCallback((_) {  
@@ -64,20 +64,20 @@ class _ChatPageState extends State<ChatPage> {
       );  
     });  
   }  
-  
+
   void _handleSend() {  
     final text = _controller.text.trim();  
     if (text.isEmpty) return;  
-  
+
     setState(() {  
       _messages.add(_ChatMessage(text: text, isUser: true));  
     });  
     _controller.clear();  
     _scrollToBottom();  
-  
+
     // Temporary local simulation only — no API/network call.  
     Future.delayed(const Duration(milliseconds: 700), () {  
-      if (_disposed) return;  
+      if (_disposed) return; // এখানে ডিসপোজড চেকটা বসিয়ে দেওয়া হয়েছে  
       setState(() {  
         _messages.add(  
           _ChatMessage(  
@@ -89,7 +89,7 @@ class _ChatPageState extends State<ChatPage> {
       _scrollToBottom();  
     });  
   }  
-  
+
   @override  
   Widget build(BuildContext context) {  
     return SafeArea(  
@@ -124,39 +124,39 @@ class _ChatPageState extends State<ChatPage> {
     );  
   }  
 }  
-  
+
 class _AnimatedMessageEntry extends StatefulWidget {  
   const _AnimatedMessageEntry({required this.child});  
-  
+
   final Widget child;  
-  
+
   @override  
   State<_AnimatedMessageEntry> createState() => _AnimatedMessageEntryState();  
 }  
-  
+
 class _AnimatedMessageEntryState extends State<_AnimatedMessageEntry>  
     with SingleTickerProviderStateMixin {  
   late final AnimationController _controller = AnimationController(  
     vsync: this,  
     duration: const Duration(milliseconds: 260),  
   )..forward();  
-  
+
   late final Animation<double> _fade = CurvedAnimation(  
     parent: _controller,  
     curve: Curves.easeOut,  
   );  
-  
+
   late final Animation<Offset> _slide = Tween<Offset>(  
     begin: const Offset(0, 0.06),  
     end: Offset.zero,  
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));  
-  
+
   @override  
   void dispose() {  
     _controller.dispose();  
     super.dispose();  
   }  
-  
+
   @override  
   Widget build(BuildContext context) {  
     return FadeTransition(  
@@ -165,16 +165,16 @@ class _AnimatedMessageEntryState extends State<_AnimatedMessageEntry>
     );  
   }  
 }  
-  
+
 class _ChatBubble extends StatelessWidget {  
   const _ChatBubble({required this.message});  
-  
+
   final _ChatMessage message;  
-  
+
   @override  
   Widget build(BuildContext context) {  
     final isUser = message.isUser;  
-  
+
     return Padding(  
       padding: const EdgeInsets.symmetric(vertical: 6),  
       child: Row(  
@@ -206,12 +206,12 @@ class _ChatBubble extends StatelessWidget {
     );  
   }  
 }  
-  
+
 class _NatashaBubble extends StatelessWidget {  
   const _NatashaBubble({required this.text});  
-  
+
   final String text;  
-  
+
   @override  
   Widget build(BuildContext context) {  
     return GlassCard(  
@@ -239,12 +239,12 @@ class _NatashaBubble extends StatelessWidget {
     );  
   }  
 }  
-  
+
 class _UserBubble extends StatelessWidget {  
   const _UserBubble({required this.text});  
-  
+
   final String text;  
-  
+
   @override  
   Widget build(BuildContext context) {  
     return Container(  
@@ -270,7 +270,7 @@ class _UserBubble extends StatelessWidget {
     );  
   }  
 }  
-  
+
 class _ChatInputBar extends StatelessWidget {  
   const _ChatInputBar({  
     required this.controller,  
@@ -278,12 +278,12 @@ class _ChatInputBar extends StatelessWidget {
     required this.canSend,  
     required this.onSend,  
   });  
-  
+
   final TextEditingController controller;  
   final FocusNode focusNode;  
   final bool canSend;  
   final VoidCallback onSend;  
-  
+
   @override  
   Widget build(BuildContext context) {  
     return Padding(  
@@ -340,12 +340,12 @@ class _ChatInputBar extends StatelessWidget {
     );  
   }  
 }  
-  
+
 class _MicButton extends StatelessWidget {  
   const _MicButton({required this.onPressed});  
-  
+
   final VoidCallback? onPressed;  
-  
+
   @override  
   Widget build(BuildContext context) {  
     return Container(  
@@ -378,13 +378,13 @@ class _MicButton extends StatelessWidget {
     );  
   }  
 }  
-  
+
 class _SendButton extends StatelessWidget {  
   const _SendButton({required this.enabled, required this.onPressed});  
-  
+
   final bool enabled;  
   final VoidCallback onPressed;  
-  
+
   @override  
   Widget build(BuildContext context) {  
     return AnimatedOpacity(  
@@ -407,7 +407,7 @@ class _SendButton extends StatelessWidget {
     );  
   }  
 }  
-  
+
 // ignore: unused_element  
 class _FeaturePlaceholderPage extends StatelessWidget {  
   const _FeaturePlaceholderPage({  
@@ -418,14 +418,14 @@ class _FeaturePlaceholderPage extends StatelessWidget {
     required this.accent,  
     this.avatar = false,  
   });  
-  
+
   final String title;  
   final String eyebrow;  
   final String description;  
   final IconData icon;  
   final Color accent;  
   final bool avatar;  
-  
+
   @override  
   Widget build(BuildContext context) {  
     return Center(  
@@ -483,4 +483,4 @@ class _FeaturePlaceholderPage extends StatelessWidget {
       ),  
     );  
   }  
-}  
+}
