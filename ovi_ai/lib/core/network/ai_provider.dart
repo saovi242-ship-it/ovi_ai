@@ -3,4 +3,5 @@ enum AiProvider {
   openai,
   gemini,
   claude,
+  openrouter,
 }
